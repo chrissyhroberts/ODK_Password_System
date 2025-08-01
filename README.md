@@ -25,14 +25,16 @@ Looks up the stored hash from the users entity:
 pulldata('users', 'pw_hash', 'username', ${username})
 Compares entered hash to stored hash.
 
+
 ### 3. One‑shot transfer to final field
 If hashes match:
 The entered hash is copied once into a final_pw_hash field:
-once(if(${entered_hash} = ${correct_hash}, ${entered_hash}, ''))
-This field is included in the submission (if needed).
-If hashes don’t match:
-The final_pw_hash remains empty.
-After this, the raw password field ${pw_input} is no longer relevant/visible, so it is not sent to the server.
+
+`once(if(${entered_hash} = ${correct_hash}, ${entered_hash}, ''))`
+
+This field is included in the submissio
+The user then deletes the original text in the password field
+Only when the system detects a verified final hash and an empty password box can the data entry proceed.
 
 ## Key benefit
 Because the password is hashed on device and the raw password field is never submitted, the database — and anyone who gains access to it — will never see the clear‑text password.
